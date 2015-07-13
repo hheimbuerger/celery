@@ -107,6 +107,7 @@ class DatabaseBackend(BaseBackend):
     def ResultSession(self, session_manager=SessionManager()):
         return session_manager.session_factory(
             dburi=self.dburi,
+            cache=self.app.conf.get('CELERY_RESULT_DB_CACHE_IN_NON_FORKED_MODE', False),
             short_lived_sessions=self.short_lived_sessions,
             **self.engine_options
         )
